@@ -33,6 +33,5 @@ public class StoreBookServlet extends HttpServlet {
         String message = bookService.storeBook(username, bookId);
 
         resp.getWriter().print(message);
-
     }
 }

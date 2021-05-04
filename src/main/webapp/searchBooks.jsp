@@ -99,7 +99,7 @@
 				, layer = layui.layer, element =
 				layui.element;
 		var $ = layui.$;
-		var count = 0, current = 1, limit = 5;
+		var count =0, current =1, limit =5;
 
 		var active = {
 			setTop: function(){
@@ -149,11 +149,11 @@
 					// $('#content').load(location.href + " #content");
 					//count从Servlet中得到
 					// count = data;
+					console.log(data)
 					layer.msg(data)
 					if (data == '借阅成功') {
 						$('#store').text("已收藏")
 					}
-
 				}
 			});
 		})
@@ -162,9 +162,25 @@
 		$(document).on('click', '#borrow', function () {
 			//可以获取第一列的内容，也就是name的值
 			var name = $(this).parents("tr").find("td").eq(0).text();
+			var bookid = $(this).attr("index");
 			//也可以获取属性中的值
 			console.log($(this).attr("index"))
-			layer.msg(name)
+			$.ajax({
+				type: 'POST',
+				url: "/book/store",
+				data: JSON.stringify({
+					user: ${sessionScope.id}+"",
+					book: bookid
+				}),
+				contentType: "application/json;charset=utf-8",
+				success: function (data) {
+					// $('#content').load(location.href + " #content");
+					//count从Servlet中得到
+					// count = data;
+					console.log(data)
+					layer.msg(data)
+				}
+			});
 		})
 
 
@@ -181,7 +197,7 @@
 				elem: 'page',
 				count: count,
 				curr: current,
-				limits: [5, 10, 15, 20],
+				limits: [5,10,15,20],
 				limit: limit,
 				layout: ['count', 'prev', 'page', 'next', 'limit'],
 				jump: function (obj, first) {

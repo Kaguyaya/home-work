@@ -15,20 +15,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-@WebServlet(name = "SearchBooksServlet", urlPatterns = "/book/search")
-public class SearchBooksServlet extends HttpServlet {
-
+@WebServlet(name="FavoriteListServlet",urlPatterns = "/book/favorite")
+public class FavoriteListServlet extends HttpServlet {
     private BookService bookService = new BookService();
-
     @Override
-    protected void doGet(HttpServletRequest req,
-                         HttpServletResponse resp) throws ServletException, IOException {
-        doPost(req, resp);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doGet(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req,
-                          HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //1. 取参（req当前的页码, 每页的数量, 搜索）
         String paramJson = IOUtils.toString(
                 req.getInputStream(), "UTF-8");
@@ -45,7 +41,7 @@ public class SearchBooksServlet extends HttpServlet {
             //带参数查询
         } else {
             //无参查询
-            books = bookService.searchAllBooks((String) req.getSession().getAttribute("id"), pageNum,
+            books = bookService.favoriteList((String) req.getSession().getAttribute("id"), pageNum,
                             pageSize);
         }
 
