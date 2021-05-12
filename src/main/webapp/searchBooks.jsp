@@ -139,7 +139,7 @@
 			var bookid = $(this).attr("index");
 			$.ajax({
 				type: 'POST',
-				url: "/book/store",
+				url: "/book/collection",
 				data: JSON.stringify({
 					user: ${sessionScope.id}+"",
 					book: bookid
@@ -149,10 +149,12 @@
 					// $('#content').load(location.href + " #content");
 					//count从Servlet中得到
 					// count = data;
-					console.log(data)
 					layer.msg(data)
 					if (data == '借阅成功') {
 						$('#store').text("已收藏")
+					}
+					else{
+
 					}
 				}
 			});

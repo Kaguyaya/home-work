@@ -55,7 +55,6 @@ public class BookDao {
                         rs.getString("sort"),
                         rs.getString("description"));
                 books.add(book);
-                System.out.println(books);
             }
 
         } catch (SQLException e) {
@@ -107,6 +106,15 @@ public class BookDao {
                 new Object[]{
                         bookId, username,
                         new  Date(System.currentTimeMillis())
+                });
+        return result;
+    }
+
+    public int insertCollectionBook(String username, String bookId) {
+        String sql = "insert into favorite_books(bookid, cardid) values(?,?)";
+        int result = JDBCUtil.getInstance().executeUpdate(sql,
+                new Object[]{
+                        bookId, username
                 });
         return result;
     }

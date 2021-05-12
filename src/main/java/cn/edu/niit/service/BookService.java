@@ -35,6 +35,16 @@ public class BookService {
             return "借阅失败";
         }
     }
+
+    public String collectionBook(String username, String bookId) {
+        int result = bookDao.insertCollectionBook(username, bookId);
+        if (result > 0) {
+            return "收藏成功";
+        } else {
+            return "收藏失败";
+        }
+    }
+
     //搜索加入到收藏的书
     public List<Book> favoriteList(String username, int pageNum,
                                    int pageSize){
