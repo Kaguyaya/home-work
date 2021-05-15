@@ -47,7 +47,7 @@
 			<col width="150">
 			<col width="200">
 			<col>
-			<col width="180">
+			<col width="190">
 		</colgroup>
 		<thead>
 		<tr>
@@ -75,7 +75,8 @@
 							id="info">查看
 					</button>
 					<button class="layui-btn layui-btn-xs borrow"
-							id="borrow" index="${status.index}">借阅
+							id="borrow" index="${status.index}">
+							${book.isborrow?"已借阅":"借阅"}
 					</button>
 					<button class="layui-btn layui-btn-xs borrow"
 							id="store" index="${book.id}">
@@ -167,7 +168,7 @@
 		})
 
 		//借阅按钮的点击事件
-		$(document).on('click', '#borrow', function () {
+		$(document).on('click', '#borrow', function (e) {
 			//可以获取第一列的内容，也就是name的值
 			var name = $(this).parents("tr").find("td").eq(0).text();
 			var bookid = $(this).attr("index");
@@ -187,6 +188,14 @@
 					// count = data;
 					console.log(data)
 					layer.msg(data)
+					if (data=="借阅成功")
+					{
+						$(e.target).text("已借阅");
+					}
+					if (data=="借阅失败")
+					{
+						$(e.target).text("借阅");
+					}
 				}
 			});
 		})

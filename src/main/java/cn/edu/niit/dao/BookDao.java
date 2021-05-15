@@ -97,7 +97,19 @@ public class BookDao {
         }
 
         return false;
+    }
+    public boolean selectStoreBookExist(String username,String bookId){
+        String sql="select EXISTS (SELECT 1 FROM library.borrow_books where book_id=? and card_id=? )as store";
+        try{
+            ResultSet result=JDBCUtil.getInstance().executeQueryRS(sql,new Object[]{bookId,username});
+            while (result.next()) {
+                return result.getBoolean("store");
+            }
+        }
+        catch (Exception e){
 
+        }
+        return false;
     }
     //增加借阅图书
     public int insertStoreBook(String username, String bookId) {

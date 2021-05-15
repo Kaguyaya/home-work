@@ -15,12 +15,16 @@ public class BookService {
         List<Book> books = bookDao.selectAll(pageNum, pageSize);
         for (Book book : books) {
             book.setStore(isStore(username, book.getId()));
+            book.setIsborrow(isBorrow(username,book.getId()));
         }
         return books;
     }
 
     public int countNum() {
         return bookDao.count();
+    }
+    public boolean isBorrow(String username,String bookId){
+        return bookDao.selectStoreBookExist(username,bookId);
     }
     //判断是否被借
     public boolean isStore(String username, String bookId) {
@@ -39,7 +43,6 @@ public class BookService {
 
     public String collectionBook(String username, String bookId) {
         boolean isCollection=bookDao.selectCollectionBookExist(username,bookId);
-        System.out.println(isCollection);
         if (isCollection){
            int isDelete= bookDao.delectCollectionBookExist(username,bookId);
            if (isDelete>0)

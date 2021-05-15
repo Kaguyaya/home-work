@@ -14,7 +14,7 @@ public class Book {
     private String sort;
     private String description;
     private boolean store;
-
+    private boolean isborrow;
     public Book(String id, String name, String author, String sort,
                 String description) {
         this.id = id;
