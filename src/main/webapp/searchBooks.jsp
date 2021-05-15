@@ -149,8 +149,9 @@
 					// $('#content').load(location.href + " #content");
 					//count从Servlet中得到
 					// count = data;
-					layer.msg(data)
-					if (data == '借阅成功') {
+					console.log(data);
+					layer.msg(data);
+					if (data == '收藏成功') {
 						$('#store').text("已收藏")
 					}
 					else{

@@ -80,8 +80,8 @@ public class BookDao {
     }
     //查询是否被借阅
     public boolean selectStore(String username, String bookId) {
-        String sql1 = "select EXISTS( SELECT 1 from borrow_books " +
-                "where book_id=? and card_id=?) as store";
+        String sql1 = "select EXISTS( SELECT 1 from favorite_books " +
+                "where bookid=? and cardid=?) as store";
         try (ResultSet rs =
                      JDBCUtil.getInstance().executeQueryRS(sql1,
                              new Object[]{
@@ -97,6 +97,7 @@ public class BookDao {
         }
 
         return false;
+
     }
     //增加借阅图书
     public int insertStoreBook(String username, String bookId) {

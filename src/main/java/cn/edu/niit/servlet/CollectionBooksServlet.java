@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 
-@WebServlet(name = "SearchBooksServlet", urlPatterns = "/book/collection")
+@WebServlet(name = "CollectionBooksServlet", urlPatterns = "/book/collection")
 public class CollectionBooksServlet extends HttpServlet {
     private BookService bookService = new BookService();
     @Override
@@ -29,7 +29,7 @@ public class CollectionBooksServlet extends HttpServlet {
                         HashMap.class);
         String username = (String) parseObject.get("user");
         String bookId = (String) parseObject.get("book");
-        String message = bookService.collectionBook(username, bookId);
+        String message = bookService.collectionBook(username,bookId);
         resp.getWriter().print(message);
     }
 }

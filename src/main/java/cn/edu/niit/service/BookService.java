@@ -24,6 +24,7 @@ public class BookService {
     }
     //判断是否被借
     public boolean isStore(String username, String bookId) {
+
         return bookDao.selectStore(username, bookId);
     }
     //借书
