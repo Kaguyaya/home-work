@@ -38,6 +38,20 @@ public class BookService {
     }
 
     public String collectionBook(String username, String bookId) {
+        boolean isCollection=bookDao.selectCollectionBookExist(username,bookId);
+        System.out.println(isCollection);
+        if (isCollection){
+           int isDelete= bookDao.delectCollectionBookExist(username,bookId);
+           if (isDelete>0)
+           {
+               return "取消收藏";
+           }
+           else
+           {
+               return "收藏异常";
+           }
+        }
+
         int result = bookDao.insertCollectionBook(username, bookId);
         if (result > 0) {
             return "收藏成功";

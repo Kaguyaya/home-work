@@ -133,7 +133,7 @@
 
 
 
-		$(document).on('click', '#store', function () {
+		$(document).on('click', '#store', function (e) {
 			//可以获取第一列的内容，也就是name的值
 			var name = $(this).parents("tr").find("td").eq(0).text();
 			var bookid = $(this).attr("index");
@@ -151,11 +151,16 @@
 					// count = data;
 					console.log(data);
 					layer.msg(data);
-					if (data == '收藏成功') {
-						$('#store').text("已收藏")
-					}
-					else{
 
+					if (data == '收藏成功') {
+						// 在页面任意位置点击而触发此事件
+							$(e.target).text("已收藏");       // e.target表示被点击的目标
+						//此方法对于想要获取击元素获得当前点击元素信息如id，value，等信息，无法准确定位，获取，因此需要this，及当前之意
+					}
+					if (data =='取消收藏'){
+						 // 在页面任意位置点击而触发此事件
+							$(e.target).text("收藏");       // e.target表示被点击的目标
+						//此方法对于想要获取击元素获得当前点击元素信息如id，value，等信息，无法准确定位，获取，因此需要this，及当前之意
 					}
 				}
 			});

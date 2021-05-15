@@ -119,4 +119,22 @@ public class BookDao {
                 });
         return result;
     }
+    public Boolean selectCollectionBookExist(String username, String bookId){
+        String sql="select EXISTS (SELECT 1 FROM library.favorite_books where bookid=? and cardid=? )as collection";
+        try{
+            ResultSet result=JDBCUtil.getInstance().executeQueryRS(sql,new Object[]{bookId,username});
+            while (result.next()) {
+                return result.getBoolean("collection");
+            }
+        }
+        catch (Exception e){
+
+        }
+        return false;
+    }
+    public int delectCollectionBookExist(String username,String bookId){
+        String sql="delete from library.favorite_books where bookid=? and cardid=?";
+        int result=JDBCUtil.getInstance().executeUpdate(sql,new Object[]{bookId,username});
+    return result;
+    }
 }
