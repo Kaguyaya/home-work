@@ -12,6 +12,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport"
 		  content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<link rel="stylesheet" href="./layui/css/layui.css"
 		  media="all">
 	<!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
@@ -97,8 +98,7 @@
 <script>
 	layui.use(['laypage', 'layer', 'element'], function () {
 		var laypage = layui.laypage
-				, layer = layui.layer, element =
-				layui.element;
+				, layer = layui.layer, element = layui.element;
 		var $ = layui.$;
 		var count =0, current =1, limit =5;
 
@@ -237,11 +237,12 @@
 					pageNum: page,
 					pageSize: size
 				}),
-				contentType: "application/json;charset=utf-8",
-				success: function (data) {
+				contentType: "application/json;charset=utf-8"
+				, success: function (data) {
 					$('#content').load(location.href + " #content");
 					//count从Servlet中得到
 					count = data;
+					console.log(data);
 						}
 					});
 				}
