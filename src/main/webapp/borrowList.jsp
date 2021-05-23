@@ -82,7 +82,7 @@
 							id="info">查看
 					</button>
 					<button class="layui-btn layui-btn-xs borrow"
-							id="borrow" index="${status.index}">借阅
+							id="borrow" index="${status.index}">归还
 					</button>
 					<button class="layui-btn layui-btn-xs borrow"
 							id="store" index="${book.id}">
