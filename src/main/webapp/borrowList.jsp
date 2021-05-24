@@ -107,7 +107,6 @@
 						layui.element;
 				var $ = layui.$;
 				var count = 0, current = 1, limit = 5;
-
 				var active = {
 					setTop: function(){
 						var that = this;
@@ -115,14 +114,14 @@
 						layer.open({
 							type: 2 //此处以iframe举例
 							,title: '当你选择该窗体时，即会在最顶端'
-							,area: ['390px', '260px']
+							,area: ['800px', '600px']
 							,shade: 0
 							,maxmin: true
 							,offset: [ //为了演示，随机坐标
-								Math.random()*($(window).height()-300)
-								,Math.random()*($(window).width()-390)
+								$(window).height()-700
+								,$(window).width()-1200
 							]
-							,content: '//layer.layui.com/test/settop.html'
+							,content: 'borrowBook.jsp'
 							,btn: ['继续弹出', '全部关闭'] //只是为了演示
 							,yes: function(){
 								$(that).click();
