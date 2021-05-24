@@ -2,6 +2,8 @@ package cn.edu.niit.service;
 
 import cn.edu.niit.dao.BookDao;
 import cn.edu.niit.javabean.Book;
+import cn.edu.niit.javabean.Borrow_books;
+import cn.edu.niit.javabean.ListJson;
 
 import java.util.List;
 
@@ -71,5 +73,23 @@ public class BookService {
             book.setStore(isStore(username, book.getId()));
         }
         return books;
+    }
+
+    public List<Borrow_books> borrow_booksList(String card_id, String book_id){
+        List<Borrow_books> borrow_booksList=null;
+        try {
+          borrow_booksList= new BookDao().selectBorrow_books(card_id,book_id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return borrow_booksList;
+    }
+
+    public ListJson jsonBorrow_bookList(String card_id,String book_id){
+        ListJson listJson=new ListJson(0,
+                "",
+                1000,
+                borrow_booksList(card_id,book_id));
+        return listJson;
     }
 }

@@ -32,6 +32,7 @@ public class FavoriteListServlet extends HttpServlet {
                 JSON.parseObject(paramJson,
                         HashMap.class);
         String param = (String) parseObject.get("search");
+
         int pageNum = (int) parseObject.get("pageNum");
         int pageSize = (int) parseObject.get("pageSize");
         List<Book> books = new ArrayList<>();

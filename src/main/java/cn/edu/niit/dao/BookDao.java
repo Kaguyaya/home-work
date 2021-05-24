@@ -2,6 +2,7 @@ package cn.edu.niit.dao;
 
 import cn.edu.niit.db.JDBCUtil;
 import cn.edu.niit.javabean.Book;
+import cn.edu.niit.javabean.Borrow_books;
 
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -149,4 +150,25 @@ public class BookDao {
         int result=JDBCUtil.getInstance().executeUpdate(sql,new Object[]{bookId,username});
     return result;
     }
+
+   public List<Borrow_books> selectBorrow_books(String card_id,String book_id) throws Exception{
+        Borrow_books borrow_books=null;
+        String sql="SELECT * FROM borrow_books WHERE card_id=? AND book_id=?";
+        List<Borrow_books> borrow_booksList=null;
+        ResultSet resultSet=JDBCUtil.getInstance().executeQueryRS(sql,new Object[]{});
+        while (resultSet.next()){
+            borrow_books=new Borrow_books(resultSet.getInt("id"),
+                    resultSet.getInt("card_id"),
+                    resultSet.getInt("book_id"),
+                    resultSet.getString("borrow_date"),
+                    resultSet.getString("end_date"),
+                    resultSet.getString("return_date"),
+                    resultSet.getString("illegal"),
+                    resultSet.getString("manager_id")
+                    );
+        borrow_booksList.add(borrow_books);
+        }
+
+        return borrow_booksList;
+   }
 }
