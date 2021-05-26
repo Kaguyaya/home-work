@@ -1,6 +1,7 @@
 package cn.edu.niit.servlet;
 
 
+import cn.edu.niit.javabean.ListJson;
 import cn.edu.niit.service.BookService;
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.io.IOUtils;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.HashMap;
 
@@ -29,18 +31,18 @@ public class BorrowBookServlet extends HttpServlet {
         // response.setContentType("text/html");
         // 设置字符编码为UTF-8, 这样支持汉字显示
         // response.setCharacterEncoding("UTF-8");
+        String paramJson = IOUtils.toString(
+                req.getInputStream(), "UTF-8");
+        HashMap<String, Object> parseObject =
+                JSON.parseObject(paramJson,
+                        HashMap.class);
 
+        String username = (String) parseObject.get("user");
+        String bookId = (String) parseObject.get("book");
         resp.setContentType("text/html;charset=utf-8");
-
-        /** 设置响应头允许ajax跨域访问 **/
-        resp.setHeader("Access-Control-Allow-Origin", "*");
-        /* 星号表示所有的异域请求都可以接受， */
-        resp.setHeader("Access-Control-Allow-Methods", "GET,POST");
-
-
-
+        req.getSession().setAttribute("borrow_user",username);
+        req.getSession().setAttribute("borrow_bookid",bookId);
+        System.out.println(req.getSession());
         //将建json对象转换为java对象
-
-
     }
 }

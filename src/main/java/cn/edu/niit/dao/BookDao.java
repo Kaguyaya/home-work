@@ -152,10 +152,10 @@ public class BookDao {
     }
 
    public List<Borrow_books> selectBorrow_books(String card_id,String book_id) throws Exception{
-        Borrow_books borrow_books=null;
+        Borrow_books borrow_books;
         String sql="SELECT * FROM borrow_books WHERE card_id=? AND book_id=?";
-        List<Borrow_books> borrow_booksList=null;
-        ResultSet resultSet=JDBCUtil.getInstance().executeQueryRS(sql,new Object[]{});
+        List<Borrow_books> borrow_booksList = new ArrayList<>();
+        ResultSet resultSet=JDBCUtil.getInstance().executeQueryRS(sql,new Object[]{card_id,book_id});
         while (resultSet.next()){
             borrow_books=new Borrow_books(resultSet.getInt("id"),
                     resultSet.getInt("card_id"),
@@ -166,7 +166,7 @@ public class BookDao {
                     resultSet.getString("illegal"),
                     resultSet.getString("manager_id")
                     );
-        borrow_booksList.add(borrow_books);
+            borrow_booksList.add(borrow_books);
         }
 
         return borrow_booksList;

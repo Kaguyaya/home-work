@@ -98,4 +98,18 @@ public class Borrow_books {
     public void setManager_id(String manager_id) {
         this.manager_id = manager_id;
     }
+
+    @Override
+    public String toString() {
+        return "Borrow_books{" +
+                "id=" + id +
+                ", card_id=" + card_id +
+                ", book_id=" + book_id +
+                ", borrow_date='" + borrow_date + '\'' +
+                ", end_date='" + end_date + '\'' +
+                ", return_date='" + return_date + '\'' +
+                ", illegal='" + illegal + '\'' +
+                ", manager_id='" + manager_id + '\'' +
+                '}';
+    }
 }

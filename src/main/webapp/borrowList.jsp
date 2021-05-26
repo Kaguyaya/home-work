@@ -79,6 +79,7 @@
 					<button
 							data-method="setTop"
 							class="layui-btn layui-btn-primary layui-btn-xs detail"
+							index="${status.index}"
 							id="info">查看
 					</button>
 					<button class="layui-btn layui-btn-xs borrow"
@@ -107,6 +108,7 @@
 						layui.element;
 				var $ = layui.$;
 				var count = 0, current = 1, limit = 5;
+				var listdata;
 				var active = {
 					setTop: function(){
 						var that = this;
@@ -121,7 +123,7 @@
 								$(window).height()-700
 								,$(window).width()-1200
 							]
-							,content: 'borrowBook.jsp'
+							,content:"borrowBook.jsp"
 							,btn: ['继续弹出', '全部关闭'] //只是为了演示
 							,yes: function(){
 								$(that).click();
@@ -135,6 +137,7 @@
 								layer.setTop(layero); //重点2
 							}
 						});
+
 					}};
 
 
@@ -236,6 +239,22 @@
 				}
 				//查看按钮的点击事件
 				$(document).on('click','#info', function(){
+					var name = $(this).parents("tr").find("td").eq(0).text();
+					var bookid = $(this).attr("index");
+					$.ajax({
+						type: 'POST',
+						url: "/book/borrowbook",
+						data: JSON.stringify({
+							user: ${sessionScope.id}+"",
+							book: bookid
+						}),
+						contentType: "application/json;charset=utf-8",
+						success: function (data) {
+							// $('#content').load(location.href + " #content");
+							//count从Servlet中得到
+							// count = data;
+						}
+					});
 					var othis = $(this), method = othis.data('method');
 					active[method] ? active[method].call(this, othis) : '';
 				});

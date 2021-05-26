@@ -5,6 +5,7 @@ import cn.edu.niit.javabean.Book;
 import cn.edu.niit.javabean.Borrow_books;
 import cn.edu.niit.javabean.ListJson;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BookService {
@@ -76,7 +77,7 @@ public class BookService {
     }
 
     public List<Borrow_books> borrow_booksList(String card_id, String book_id){
-        List<Borrow_books> borrow_booksList=null;
+        List<Borrow_books> borrow_booksList=new ArrayList<>();
         try {
           borrow_booksList= new BookDao().selectBorrow_books(card_id,book_id);
         } catch (Exception e) {

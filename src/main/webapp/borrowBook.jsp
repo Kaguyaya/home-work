@@ -22,16 +22,17 @@
 <table class="layui-hide" id="test"></table>
 
 
-<script src="layui/layui.js" charset="utf-8"></script>
+<script src="./layui/layui.all.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述 JS 路径需要改成你本地的 -->
 
 <script>
     layui.use('table', function(){
-        var table = layui.table;
 
+        var table = layui.table;
         table.render({
             elem: '#test'
-            ,url:'/book/borrowbook'
+            ,method:'post'
+            ,url:'/book/borrowlist'
             ,cols: [[
                 {field:'id', width:80, title: 'ID', sort: true}
                 ,{field:'card_id', width:80, title: '卡号'}
