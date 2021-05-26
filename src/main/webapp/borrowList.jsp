@@ -115,13 +115,12 @@
 						//多窗口模式，层叠置顶
 						layer.open({
 							type: 2 //此处以iframe举例
-							,title: '当你选择该窗体时，即会在最顶端'
-							,area: ['800px', '600px']
+							,title: '已借图书记录'
+							,area: ["1200px","720px"]
 							,shade: 0
 							,maxmin: true
 							,offset: [ //为了演示，随机坐标
-								$(window).height()-700
-								,$(window).width()-1200
+								'lt'
 							]
 							,content:"borrowBook.jsp"
 							,btn: ['继续弹出', '全部关闭'] //只是为了演示
@@ -223,7 +222,7 @@
 				function getContent(page, size) {
 					$.ajax({
 						type: 'POST',
-						url: "/book/favorite",
+						url: "/book/borrowmainlist",
 						async: false, //开启同步请求，为了保证先得到count再渲染表格
 						data: JSON.stringify({
 							pageNum: page,

@@ -38,6 +38,28 @@ public class BookDao {
         }
         return books;
     }
+    public List<Book> selectBorrow(int card_id,int pageNum,int pageSize){
+        String sql = "select books.*,borrow_books.book_id,book_sort.name as sort from books,borrow_books,book_sort where books.id=borrow_books.book_id and books.sort_id=book_sort.id and card_id=? GROUP BY books.id limit ?,?";
+        List<Book> books = new ArrayList<>();
+        try (ResultSet rs =
+                     JDBCUtil.getInstance().executeQueryRS(sql,
+                             new Object[]{card_id,(pageNum - 1) * pageSize,
+                                     pageSize})) {
+
+            while (rs.next()) {
+                Book book = new Book(rs.getInt("id") + "",
+                        rs.getString("name"),
+                        rs.getString("author"),
+                        rs.getString("sort"),
+                        rs.getString("description"));
+                books.add(book);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return books;
+    }
     //查询收藏图书
     public List<Book> selectFavorite(int pageNum, int pageSize){
         //此处多加了一个是否被收藏的判断

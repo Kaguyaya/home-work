@@ -43,7 +43,6 @@
                 ,{field:'illegal', width:80, title: '违约', sort: true}
                 ,{field:'manager_id', width:80, title: '管理员'}
             ]]
-            ,page: true
         });
     });
 </script>

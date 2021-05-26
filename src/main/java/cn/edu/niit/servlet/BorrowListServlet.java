@@ -25,10 +25,6 @@ public class BorrowListServlet extends HttpServlet {
         String bookId =(String) req.getSession().getAttribute("borrow_bookid");
         String message = JSON.toJSONString(bookService.jsonBorrow_bookList(username, bookId));
         PrintWriter out = resp.getWriter();
-        System.out.println(req.getSession());
-        System.out.println(username);
-        System.out.println(bookId);
-        System.out.println(message);
         resp.setContentType("text/html;charset=utf-8");
         out.print(message);
         out.flush();

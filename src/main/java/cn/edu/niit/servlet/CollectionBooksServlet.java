@@ -27,13 +27,8 @@ public class CollectionBooksServlet extends HttpServlet {
         HashMap<String, Object> parseObject =
                 JSON.parseObject(paramJson,
                         HashMap.class);
-
-        System.out.println(parseObject.toString());
-        System.out.println(paramJson);
         String username = (String) parseObject.get("user");
         String bookId = (String) parseObject.get("book");
-        System.out.println(username);
-        System.out.println(bookId);
         String message = bookService.collectionBook(username,bookId);
         resp.getWriter().print(message);
     }

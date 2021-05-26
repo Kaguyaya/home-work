@@ -1,7 +1,6 @@
 package cn.edu.niit.servlet;
 
-
-import cn.edu.niit.javabean.ListJson;
+import cn.edu.niit.javabean.Book;
 import cn.edu.niit.service.BookService;
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.io.IOUtils;
@@ -12,15 +11,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Writer;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-@WebServlet(name = "BorrowBookServlet", urlPatterns = "/book/borrowbook")
-public class BorrowBookServlet extends HttpServlet {
-
+@WebServlet(name = "BorrowMainListServlet",urlPatterns = "/book/borrowmainlist")
+public class BorrowMainListServlet  extends HttpServlet {
     private BookService bookService = new BookService();
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req,resp);
@@ -28,21 +25,30 @@ public class BorrowBookServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // response.setContentType("text/html");
-        // 设置字符编码为UTF-8, 这样支持汉字显示
-        // response.setCharacterEncoding("UTF-8");
         String paramJson = IOUtils.toString(
                 req.getInputStream(), "UTF-8");
         HashMap<String, Object> parseObject =
                 JSON.parseObject(paramJson,
                         HashMap.class);
+        String param = (String) parseObject.get("search");
 
-        String username = (String) parseObject.get("user");
-        String bookId = (String) parseObject.get("book");
-        resp.setContentType("text/html;charset=utf-8");
-        req.getSession().setAttribute("borrow_user",username);
-        req.getSession().setAttribute("borrow_bookid",bookId);
-        //将建json对象转换为java对象
+        int pageNum = (int) parseObject.get("pageNum");
+        int pageSize = (int) parseObject.get("pageSize");
+        List<Book> books = new ArrayList<>();
+        int count = 0;
+        //2.
+        if (param != null) {
+            //带参数查询
+        } else {
+            //无参查询
+            books = bookService.borrowList((String) req.getSession().getAttribute("id"), pageNum,
+                    pageSize);
+        }
 
+        count = bookService.countNum();
+        //3. 将结果放入session
+        req.getSession().setAttribute("books", books);
+        //将count直接作为ajax请求的结果返回
+        resp.getWriter().print(count);
     }
 }
