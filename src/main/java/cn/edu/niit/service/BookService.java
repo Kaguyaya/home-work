@@ -82,6 +82,10 @@ public class BookService {
         }
         return books;
     }
+    public List<Borrow_books> selectAllBorrow_bookslist(String username,int pageNum,int pageSize){
+List<Borrow_books> borrow_books=bookDao.selectAllBorrow(Integer.parseInt(username),pageNum,pageSize);
+    return borrow_books;
+    }
     public List<Borrow_books> borrow_booksList(String card_id, String book_id){
         List<Borrow_books> borrow_booksList=new ArrayList<>();
         try {
