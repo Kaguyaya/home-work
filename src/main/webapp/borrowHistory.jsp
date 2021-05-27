@@ -92,10 +92,6 @@
 					<button class="layui-btn layui-btn-xs borrow"
 							id="borrow" index="${status.index}">借阅
 					</button>
-					<button class="layui-btn layui-btn-xs borrow"
-							id="store" index="${book.id}">
-							${book.store?"已收藏":"收藏"}
-					</button>
 				</td>
 			</tr>
 		</c:forEach>
@@ -229,7 +225,7 @@
 				function getContent(page, size) {
 					$.ajax({
 						type: 'POST',
-						url: "/book/favorite",
+						url: "/book/borrowhistory",
 						async: false, //开启同步请求，为了保证先得到count再渲染表格
 						data: JSON.stringify({
 							pageNum: page,

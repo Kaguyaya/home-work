@@ -78,6 +78,7 @@ public class BookDao {
                         rs.getString("illegal"),
                         rs.getString("manager_id")
                 );
+                System.out.println(borrow_book);
                 borrow_books.add(borrow_book);
             }
 
