@@ -28,9 +28,9 @@ public class StoreBookServlet extends HttpServlet {
                 JSON.parseObject(paramJson,
                         HashMap.class);
         String username = (String) parseObject.get("user");
-        String bookId = (String) parseObject.get("book");
-
-        String message = bookService.storeBook(username, bookId);
+        String bookname = (String) parseObject.get("book");
+        String bookid=bookService.getBooksid(bookname);
+        String message = bookService.storeBook(username, bookid);
 
         resp.getWriter().print(message);
     }

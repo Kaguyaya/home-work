@@ -43,6 +43,10 @@ public class BookService {
             return "借阅失败";
         }
     }
+    public String getBooksid(String bookname){
+        String result=bookDao.selectBookid(bookname);
+        return result;
+    }
     public String returnBook(int id){
         int result=bookDao.updateReturnBook(id);
         if (result>0){
@@ -90,7 +94,7 @@ public class BookService {
         return books;
     }
     public List<Borrow_books> selectAllBorrow_bookslist(String username,int pageNum,int pageSize){
-List<Borrow_books> borrow_books=bookDao.selectAllBorrow(Integer.parseInt(username),pageNum,pageSize);
+    List<Borrow_books> borrow_books=bookDao.selectAllBorrow(Integer.parseInt(username),pageNum,pageSize);
     return borrow_books;
     }
     public List<Borrow_books> borrow_booksList(String card_id, String book_id){

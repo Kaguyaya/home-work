@@ -63,6 +63,7 @@ public class BookDao {
     }
     public List<Borrow_books> selectAllBorrow(int card_id,int pageNum,int pageSize){
         String sql="SELECT * FROM borrow_books WHERE card_id=? LIMIT ?,?";
+        String sql1="SELECT DISTINCT  books.name AS sort FROM books,borrow_books WHERE books.id=?";
         List<Borrow_books> borrow_books=new ArrayList<>();
         try (ResultSet rs =
                      JDBCUtil.getInstance().executeQueryRS(sql,
@@ -70,6 +71,10 @@ public class BookDao {
                                      pageSize})) {
 
             while (rs.next()) {
+                ResultSet rs1=JDBCUtil.getInstance().executeQueryRS(sql1,
+                        new Object[]{rs.getInt("book_id")}
+                        );
+
                 Borrow_books borrow_book = new Borrow_books(rs.getInt("id"),
                         rs.getInt("card_id"),
                         rs.getInt("book_id"),
@@ -79,7 +84,9 @@ public class BookDao {
                         rs.getString("illegal"),
                         rs.getString("manager_id")
                 );
-
+                while (rs1.next()){
+                    borrow_book.setBook_name(rs1.getString("sort"));
+                }
                 borrow_books.add(borrow_book);
             }
 
@@ -161,6 +168,21 @@ public class BookDao {
 
         }
         return false;
+    }
+    public String selectBookid(String str){
+        String sql="SELECT books.id FROM books WHERE books.name=?";
+        try {
+            ResultSet resultSet=JDBCUtil.getInstance().executeQueryRS(sql,new Object[]{
+                    str
+            });
+            while (resultSet.next()){
+                return resultSet.getString("id");
+            }
+        }catch (Exception e){
+
+        }
+
+        return null;
     }
     //增加借阅图书
     public int insertStoreBook(String username, String bookId) {

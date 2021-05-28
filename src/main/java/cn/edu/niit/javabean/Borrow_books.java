@@ -21,6 +21,15 @@ public class Borrow_books {
     @JSONField(name = "manager_id")
     private String manager_id;
 
+    public String getBook_name() {
+        return book_name;
+    }
+
+    public void setBook_name(String book_name) {
+        this.book_name = book_name;
+    }
+    @JSONField(name="book_name")
+    private String book_name;
     public Borrow_books(int id, int card_id, int book_id, String borrow_date, String end_date, String return_date, String illegal, String manager_id) {
         this.id = id;
         this.card_id = card_id;

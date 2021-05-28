@@ -75,7 +75,7 @@
 			<tr>
 				<td>${book.id}</td>
 				<td>${book.card_id}</td>
-				<td>${book.book_id}</td>
+				<td>${book.book_name}</td>
                 <td class="wrap-td">
                     <div class="wrap-div">${book.borrow_date}</div>
                 </td>

@@ -179,7 +179,7 @@
 				url: "/book/store",
 				data: JSON.stringify({
 					user: ${sessionScope.id}+"",
-					book: bookid
+					book: name
 				}),
 				contentType: "application/json;charset=utf-8",
 				success: function (data) {

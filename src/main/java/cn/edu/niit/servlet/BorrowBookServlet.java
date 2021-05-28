@@ -38,7 +38,8 @@ public class BorrowBookServlet extends HttpServlet {
                         HashMap.class);
 
         String username = (String) parseObject.get("user");
-        String bookId = (String) parseObject.get("book");
+        String bookname = (String) parseObject.get("book");
+        String bookId = bookService.getBooksid(bookname);
         resp.setContentType("text/html;charset=utf-8");
         req.getSession().setAttribute("borrow_user",username);
         req.getSession().setAttribute("borrow_bookid",bookId);
