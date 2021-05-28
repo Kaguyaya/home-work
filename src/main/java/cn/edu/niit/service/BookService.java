@@ -43,7 +43,14 @@ public class BookService {
             return "借阅失败";
         }
     }
-
+    public String returnBook(int id){
+        int result=bookDao.updateReturnBook(id);
+        if (result>0){
+            return "归还成功";
+        }else{
+            return "归还失败";
+        }
+    }
     public String collectionBook(String username, String bookId) {
         boolean isCollection=bookDao.selectCollectionBookExist(username,bookId);
         if (isCollection){

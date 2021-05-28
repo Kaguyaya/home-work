@@ -7,6 +7,7 @@ import cn.edu.niit.javabean.Borrow_books;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,7 +79,7 @@ public class BookDao {
                         rs.getString("illegal"),
                         rs.getString("manager_id")
                 );
-                System.out.println(borrow_book);
+
                 borrow_books.add(borrow_book);
             }
 
@@ -163,16 +164,28 @@ public class BookDao {
     }
     //增加借阅图书
     public int insertStoreBook(String username, String bookId) {
+        java.util.Date date= new java.util.Date();
+        SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateStr =format.format(date);
         String sql = "insert into borrow_books(book_id, card_id, " +
                 "borrow_date) values(?,?,?)";
         int result = JDBCUtil.getInstance().executeUpdate(sql,
                 new Object[]{
                         bookId, username,
-                        new  Date(System.currentTimeMillis())
+                        dateStr
                 });
         return result;
     }
-
+    public int updateReturnBook(int id){
+        java.util.Date date= new java.util.Date();
+        SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateStr =format.format(date);
+        String sql="update borrow_books set return_date=? where id=?";
+        int result=JDBCUtil.getInstance().executeUpdate(sql,new Object[]{
+                dateStr,id
+        });
+    return result;
+    }
     public int insertCollectionBook(String username, String bookId) {
         String sql = "insert into favorite_books(bookid, cardid) values(?,?)";
         int result = JDBCUtil.getInstance().executeUpdate(sql,
