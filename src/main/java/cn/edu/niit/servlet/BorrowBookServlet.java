@@ -36,7 +36,6 @@ public class BorrowBookServlet extends HttpServlet {
         HashMap<String, Object> parseObject =
                 JSON.parseObject(paramJson,
                         HashMap.class);
-
         String username = (String) parseObject.get("user");
         String bookname = (String) parseObject.get("book");
         String bookId = bookService.getBooksid(bookname);

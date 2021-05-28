@@ -4,11 +4,11 @@ import cn.edu.niit.db.JDBCUtil;
 import cn.edu.niit.javabean.Book;
 import cn.edu.niit.javabean.Borrow_books;
 
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class BookDao {
@@ -189,24 +189,90 @@ public class BookDao {
         java.util.Date date= new java.util.Date();
         SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateStr =format.format(date);
+        java.util.Date dateend= new java.util.Date(); //取时间
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(dateend);
+        calendar.add(calendar.DATE,7); //把日期往后增加一天,整数  往后推,负数往前移动
+        dateend=calendar.getTime(); //这个时间就是日期往后推一天的结果
+        String enddate=format.format(dateend);
         String sql = "insert into borrow_books(book_id, card_id, " +
-                "borrow_date) values(?,?,?)";
+                "borrow_date,end_date) values(?,?,?,?)";
         int result = JDBCUtil.getInstance().executeUpdate(sql,
                 new Object[]{
                         bookId, username,
-                        dateStr
+                        dateStr,enddate
                 });
         return result;
+    }
+    public Timestamp selectReturnDateTime(int id){
+        Timestamp timestamp = null;
+        String sql="select return_date from borrow_books where id=?";
+        ResultSet resultSet = JDBCUtil.getInstance().executeQueryRS(sql, new Object[]{id});
+       try{
+           while (resultSet.next()){
+               timestamp=resultSet.getTimestamp("return_date");
+           }
+       }catch (Exception e){
+
+       }
+        return timestamp;
+    }
+
+    public Timestamp selectEndDateTime(int id){
+        Timestamp timestamp = null;
+        String sql="select end_date from borrow_books where id=?";
+        ResultSet resultSet = JDBCUtil.getInstance().executeQueryRS(sql, new Object[]{id});
+        try{
+            while (resultSet.next()){
+                timestamp=resultSet.getTimestamp("end_date");
+            }
+        }catch (Exception e){
+
+        }
+        return timestamp;
     }
     public int updateReturnBook(int id){
         java.util.Date date= new java.util.Date();
         SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateStr =format.format(date);
+
+
         String sql="update borrow_books set return_date=? where id=?";
         int result=JDBCUtil.getInstance().executeUpdate(sql,new Object[]{
                 dateStr,id
         });
+
+        Timestamp begindate = selectReturnDateTime(id);
+        Timestamp returndate = selectEndDateTime(id);
+        if (begindate.before(returndate)){
+            System.out.println("无违约");
+        }
+        else{
+            long timeDifference = getTimeDifference(returndate,begindate );
+            System.out.println(timeDifference);
+        }
+
     return result;
+    }
+    public long getTimeDifference(Timestamp formatTime1, Timestamp formatTime2) {
+        Timestamp currentTime = formatTime1;
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Timestamp createTime = formatTime2;
+        long l=currentTime.getTime()-createTime.getTime();
+        long day=l/(24*60*60*1000);
+        return day;
+    }
+    public int illegal(int enddate,int returndate){
+        int date=returndate-enddate;
+        if (date>0){
+            return date;
+        }
+        else if (date<=0){
+            return 0;
+        }
+        else{
+            return 0;
+        }
     }
     public int insertCollectionBook(String username, String bookId) {
         String sql = "insert into favorite_books(bookid, cardid) values(?,?)";

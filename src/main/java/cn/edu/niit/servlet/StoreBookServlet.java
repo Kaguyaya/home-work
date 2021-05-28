@@ -31,7 +31,6 @@ public class StoreBookServlet extends HttpServlet {
         String bookname = (String) parseObject.get("book");
         String bookid=bookService.getBooksid(bookname);
         String message = bookService.storeBook(username, bookid);
-
         resp.getWriter().print(message);
     }
 }
