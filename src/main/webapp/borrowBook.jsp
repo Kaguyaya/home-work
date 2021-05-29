@@ -37,14 +37,15 @@
             elem: '#test'
             ,method:'post'
             ,url:'/book/borrowlist'
+            ,cellMinWidth: 40
             ,cols: [[
                 {field:'id', width:80, title: 'ID', sort: true}
                 ,{field:'card_id', width:80, title: '卡号'}
                 ,{field:'book_id', width:80, title: '书号', sort: true}
-                ,{field:'borrow_date', minwidth:100, title: '借书日期'}
-                ,{field:'end_date', title: '截止时间', minWidth: 100}
-                ,{field:'return_date', minwidth:100, title: '还书日期', sort: true}
-                ,{field:'illegal', width:80, title: '违约', sort: true}
+                ,{field:'borrow_date', minwidth:90, title: '借书日期'}
+                ,{field:'end_date', title: '截止时间', minWidth: 90}
+                ,{field:'return_date', minwidth:90, title: '还书日期', sort: true}
+                ,{field:'illegal', width:100, title: '违约', sort: true}
                 ,{field:'manager_id', width:80, title: '管理员'}
                 ,{fixed: 'right', title:'操作',align:'center',toolbar: '#barDemo', width:150}
             ]]

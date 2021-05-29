@@ -245,11 +245,18 @@ public class BookDao {
         Timestamp begindate = selectReturnDateTime(id);
         Timestamp returndate = selectEndDateTime(id);
         if (begindate.before(returndate)){
-            System.out.println("无违约");
+            String illsql1="update borrow_books set illegal='未逾期' where id=?";
+            int illresult=JDBCUtil.getInstance().executeUpdate(illsql1,new Object[]{
+                    id
+            });
         }
         else{
-            long timeDifference = getTimeDifference(returndate,begindate );
-            System.out.println(timeDifference);
+            String  timeDifference = String.valueOf(getTimeDifference(begindate,returndate ));
+            String illsql2="update borrow_books set illegal='逾期"+timeDifference+"天' where id=?";
+            int illresult=JDBCUtil.getInstance().executeUpdate(illsql2,new Object[]{
+                    id
+            });
+
         }
 
     return result;
