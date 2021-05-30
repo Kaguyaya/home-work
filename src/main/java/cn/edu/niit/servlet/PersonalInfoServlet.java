@@ -14,8 +14,7 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 import java.util.UUID;
 
-@WebServlet(name = "PersonalInfoServlet", urlPatterns = "/personal" +
-        "/upload")
+@WebServlet(name = "PersonalInfoServlet", urlPatterns = "/personal/upload")
 @MultipartConfig()
 public class PersonalInfoServlet extends HttpServlet {
 
@@ -38,7 +37,6 @@ public class PersonalInfoServlet extends HttpServlet {
                 req.getParameter("cellphone"),
                 req.getParameter("email"),
                 req.getParameter("remarks"));
-
         Part part = req.getPart("avatar");
         if (part.getSize() > 0) {
             //获取文件名

@@ -86,11 +86,11 @@
 				<td>
 					<button
 							data-method="setTop"
-							class="layui-btn layui-btn-primary layui-btn-xs detail"
-							id="info">查看
+							class="layui-btn layui-disabled layui-btn-primary layui-btn-xs detail"
+							id="info">删除
 					</button>
-					<button class="layui-btn layui-btn-xs borrow"
-							id="borrow" index="${status.index}">借阅
+					<button class="layui-btn layui-disabled layui-btn-xs borrow"
+							id="borrow" index="${status.index}">修改
 					</button>
 				</td>
 			</tr>
@@ -144,55 +144,55 @@
 
 
 
-				$(document).on('click', '#store', function () {
-					//可以获取第一列的内容，也就是name的值
-					var name = $(this).parents("tr").find("td").eq(0).text();
-					var bookid = $(this).attr("index");
-					$.ajax({
-						type: 'POST',
-						url: "/book/store",
-						data: JSON.stringify({
-							user: ${sessionScope.id}+"",
-							book: bookid
-						}),
-						contentType: "application/json;charset=utf-8",
-						success: function (data) {
-							// $('#content').load(location.href + " #content");
-							//count从Servlet中得到
-							// count = data;
-							console.log(data)
-							layer.msg(data)
-							if (data == '借阅成功') {
-								$('#store').text("已收藏")
-							}
-						}
-					});
-				})
+				<%--$(document).on('click', '#store', function () {--%>
+				<%--	//可以获取第一列的内容，也就是name的值--%>
+				<%--	var name = $(this).parents("tr").find("td").eq(0).text();--%>
+				<%--	var bookid = $(this).attr("index");--%>
+				<%--	$.ajax({--%>
+				<%--		type: 'POST',--%>
+				<%--		url: "/book/store",--%>
+				<%--		data: JSON.stringify({--%>
+				<%--			user: ${sessionScope.id}+"",--%>
+				<%--			book: bookid--%>
+				<%--		}),--%>
+				<%--		contentType: "application/json;charset=utf-8",--%>
+				<%--		success: function (data) {--%>
+				<%--			// $('#content').load(location.href + " #content");--%>
+				<%--			//count从Servlet中得到--%>
+				<%--			// count = data;--%>
+				<%--			console.log(data)--%>
+				<%--			layer.msg(data)--%>
+				<%--			if (data == '借阅成功') {--%>
+				<%--				$('#store').text("已收藏")--%>
+				<%--			}--%>
+				<%--		}--%>
+				<%--	});--%>
+				<%--})--%>
 
-				//借阅按钮的点击事件
-				$(document).on('click', '#borrow', function () {
-					//可以获取第一列的内容，也就是name的值
-					var name = $(this).parents("tr").find("td").eq(0).text();
-					var bookid = $(this).attr("index");
-					//也可以获取属性中的值
-					console.log($(this).attr("index"))
-					$.ajax({
-						type: 'POST',
-						url: "/book/store",
-						data: JSON.stringify({
-							user: ${sessionScope.id}+"",
-							book: bookid
-						}),
-						contentType: "application/json;charset=utf-8",
-						success: function (data) {
-							// $('#content').load(location.href + " #content");
-							//count从Servlet中得到
-							// count = data;
-							console.log(data)
-							layer.msg(data)
-						}
-					});
-				})
+				<%--//借阅按钮的点击事件--%>
+				<%--$(document).on('click', '#borrow', function () {--%>
+				<%--	//可以获取第一列的内容，也就是name的值--%>
+				<%--	var name = $(this).parents("tr").find("td").eq(0).text();--%>
+				<%--	var bookid = $(this).attr("index");--%>
+				<%--	//也可以获取属性中的值--%>
+				<%--	console.log($(this).attr("index"))--%>
+				<%--	$.ajax({--%>
+				<%--		type: 'POST',--%>
+				<%--		url: "/book/store",--%>
+				<%--		data: JSON.stringify({--%>
+				<%--			user: ${sessionScope.id}+"",--%>
+				<%--			book: bookid--%>
+				<%--		}),--%>
+				<%--		contentType: "application/json;charset=utf-8",--%>
+				<%--		success: function (data) {--%>
+				<%--			// $('#content').load(location.href + " #content");--%>
+				<%--			//count从Servlet中得到--%>
+				<%--			// count = data;--%>
+				<%--			console.log(data)--%>
+				<%--			layer.msg(data)--%>
+				<%--		}--%>
+				<%--	});--%>
+				<%--})--%>
 
 
 				$('#search').click(function () {
@@ -240,10 +240,10 @@
 					});
 				}
 				//查看按钮的点击事件
-				$(document).on('click','#info', function(){
-					var othis = $(this), method = othis.data('method');
-					active[method] ? active[method].call(this, othis) : '';
-				});
+				// $(document).on('click','#info', function(){
+				// 	var othis = $(this), method = othis.data('method');
+				// 	active[method] ? active[method].call(this, othis) : '';
+				// });
 			}
 	);
 </script>

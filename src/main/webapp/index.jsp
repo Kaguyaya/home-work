@@ -3,12 +3,13 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>layui.form小例子</title>
+	<title>登录</title>
 	<link rel="stylesheet" href="/layui/css/layui.css" media="all">
 	<style>
 		html, body {
 			width: 100%;
 			height: 100%;
+			background-image: url("imgs/header.jpg");
 		}
 
 		.login {
@@ -36,11 +37,11 @@
 
 	</style>
 </head>
-<body>
+<body background="imgs/header.jpg">
 
 <%@include file="window.jsp" %>
 
-<div class="login">
+<div class="login"  >
 	<div class="login-layout">
 		<form class="layui-form" method="post"
 			  action="/login">

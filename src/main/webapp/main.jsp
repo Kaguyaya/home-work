@@ -91,10 +91,13 @@
 					   title="留言板"
 					   content="./messageBoard.jsp" id="7">留言板</a>
 				</li>
-				<li class="layui-nav-item">
+				<li class="layui-nav-item" >
 					<a href="javascript:;" name="borrow"
 					   title="通知中心"
-					   content="./notification.jsp" id="8">通知中心</a>
+					   content="./notification.jsp" id="8">通知中心
+						<span class="layui-badge">99</span>
+					</a>
+
 				</li>
 			</ul>
 		</div>

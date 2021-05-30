@@ -80,12 +80,12 @@
 							data-method="setTop"
 							class="layui-btn layui-btn-primary layui-btn-xs detail"
 							index="${status.index}"
-							id="info">查看
+							id="info">查看详情
 					</button>
-					<button class="layui-btn layui-btn-xs borrow"
+					<button class="layui-hide layui-btn layui-btn-xs borrow"
 							id="borrow" index="${status.index}">归还
 					</button>
-					<button class="layui-btn layui-btn-xs borrow"
+					<button class="layui-hide layui-btn layui-btn-xs borrow"
 							id="store" index="${book.id}">
 							${book.store?"已收藏":"收藏"}
 					</button>
