@@ -2,6 +2,7 @@ package cn.edu.niit.service;
 
 import cn.edu.niit.dao.BookDao;
 import cn.edu.niit.javabean.Book;
+import cn.edu.niit.javabean.BookCommit;
 import cn.edu.niit.javabean.Borrow_books;
 import cn.edu.niit.javabean.ListJson;
 
@@ -11,6 +12,15 @@ import java.util.List;
 public class BookService {
     private BookDao bookDao = new BookDao();
 
+    public int selectCommitId(String name){
+        int id=0;
+        try {
+           id= bookDao.selectBookCommitId(name);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
     //搜索所有书的方法
     public List<Book> searchAllBooks(String username, int pageNum,
                                      int pageSize) {
@@ -42,6 +52,22 @@ public class BookService {
         } else {
             return "借阅失败";
         }
+    }
+    public String bookCommitComit(int bookid,String commit){
+        int i = bookDao.insertBookCommit(bookid, commit);
+        if (i>0){
+            return "评论成功";
+        }
+        return "评论失败";
+    }
+    public List<BookCommit> selectallcommit(int bookid){
+        List<BookCommit> bookCommitList = new ArrayList<>();
+        try {
+            bookCommitList = bookDao.selectBookCommit(bookid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bookCommitList;
     }
     public String getBooksid(String bookname){
         String result=bookDao.selectBookid(bookname);

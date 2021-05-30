@@ -106,17 +106,16 @@
 			setTop: function(){
 				var that = this;
 				//多窗口模式，层叠置顶
-				layer.open({
+				var index=layer.open({
 					type: 2 //此处以iframe举例
-					,title: '当你选择该窗体时，即会在最顶端'
+					,title: '评论区'
 					,area: ['390px', '260px']
 					,shade: 0
 					,maxmin: true
 					,offset: [ //为了演示，随机坐标
-						Math.random()*($(window).height()-300)
-						,Math.random()*($(window).width()-390)
+
 					]
-					,content: '//layer.layui.com/test/settop.html'
+					,content: 'bookCommit.jsp'
 					,btn: ['继续弹出', '全部关闭'] //只是为了演示
 					,yes: function(){
 						$(that).click();
@@ -130,6 +129,7 @@
 						layer.setTop(layero); //重点2
 					}
 				});
+				layer.full(index);
 			}};
 
 
@@ -249,7 +249,23 @@
 		//查看按钮的点击事件
 		$(document).on('click','#info', function(){
 			var othis = $(this), method = othis.data('method');
-			active[method] ? active[method].call(this, othis) : '';
+			var name = $(this).parents("tr").find("td").eq(0).text();
+			$.ajax({
+				type: 'POST',
+				url: "/book/getInfo",
+				data: JSON.stringify({
+					name:name
+				}),
+				contentType: "application/json;charset=utf-8",
+				success: function () {
+					// $('#content').load(location.href + " #content");
+					//count从Servlet中得到
+					// count = data;
+					active[method] ? active[method].call(this, othis) : '';
+				}
+			});
+
+
 		});
 			}
 	);

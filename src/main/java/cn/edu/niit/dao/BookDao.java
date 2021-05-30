@@ -2,6 +2,7 @@ package cn.edu.niit.dao;
 
 import cn.edu.niit.db.JDBCUtil;
 import cn.edu.niit.javabean.Book;
+import cn.edu.niit.javabean.BookCommit;
 import cn.edu.niit.javabean.Borrow_books;
 
 import java.sql.*;
@@ -12,6 +13,16 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 public class BookDao {
+    public int selectBookCommitId(String name) throws Exception{
+        int id = 0;
+        String sql="select id from books where name=?";
+        ResultSet resultSet = JDBCUtil.getInstance().executeQueryRS(sql, new Object[]{name});
+
+        while (resultSet.next()){
+            id=resultSet.getInt("id");
+        }
+        return id;
+    }
     //查询所有图书
     public List<Book> selectAll(int pageNum, int pageSize) {
         String sql = "select books.*, book_sort.name as sort " +
@@ -327,5 +338,25 @@ public class BookDao {
         }
 
         return borrow_booksList;
+   }
+   public List<BookCommit> selectBookCommit(int bookid) throws Exception{
+        List<BookCommit> bookCommitList=new ArrayList<>();
+
+        String sql="select * from bookcommit where bookid=?";
+       ResultSet resultSet = JDBCUtil.getInstance().executeQueryRS(sql, new Object[]{bookid});
+       while (resultSet.next()){
+           BookCommit bookCommit=new BookCommit(
+                   resultSet.getInt("id"),
+                   resultSet.getInt("bookid"),
+                   resultSet.getString("commit")
+           );
+           bookCommitList.add(bookCommit);
+       }
+       return bookCommitList;
+   }
+   public int insertBookCommit(int bookid,String commit){
+        String sql="INSERT INTO bookcommit(bookid,COMMIT) VALUES(?,?)";
+       int i = JDBCUtil.getInstance().executeUpdate(sql, new Object[]{bookid, commit});
+       return i;
    }
 }
